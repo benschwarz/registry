@@ -9,8 +9,8 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Ben Schwarz"]
-  s.date = %q{2009-11-30}
-  s.description = %q{A super class extension that allows registration of subclasses}
+  s.date = %q{2009-12-01}
+  s.description = %q{A dirt cheap plugin sytem}
   s.email = %q{ben.schwarz@gmail.com}
   s.extra_rdoc_files = [
     "LICENSE",
@@ -24,6 +24,7 @@ Gem::Specification.new do |s|
      "Rakefile",
      "VERSION",
      "lib/registry.rb",
+     "registry.gemspec",
      "spec/registry_spec.rb",
      "spec/spec.opts",
      "spec/spec_helper.rb"
@@ -32,7 +33,7 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.5}
-  s.summary = %q{A super class extension that allows registration of subclasses}
+  s.summary = %q{A dirt cheap plugin sytem}
   s.test_files = [
     "spec/registry_spec.rb",
      "spec/spec_helper.rb"

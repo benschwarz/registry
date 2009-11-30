@@ -1,6 +1,6 @@
 # registry
 
-registry is used to mix into a super class that you has many / multiple implementations via subclasses. 
+registry is used to mix into a super class that has many or multiple implementations via subclasses. 
 
 A good example of this is a parser, you might have a parser for xml, json and another for yml.
 Register your sub classes to handle certain labels or descriptions, then let the super class decide weather the message you send it can be handled or not.
