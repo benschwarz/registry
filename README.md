@@ -1,8 +1,40 @@
-= registry
+# registry
 
-Description goes here.
+registry is used to mix into a super class that you has many / multiple implementations via subclasses. 
 
-== Note on Patches/Pull Requests
+A good example of this is a parser, you might have a parser for xml, json and another for yml.
+Register your sub classes to handle certain labels or descriptions, then let the super class decide weather the message you send it can be handled or not.
+
+## Usage
+    require 'registry'
+    
+    class Parser
+      extend Registry
+    end
+
+    class Json < Parser
+      indentifier :json, :javascript
+
+      def self.parse
+        puts "parsing json..."
+      end
+    end
+
+    class Yaml < Parser
+      def self.parse
+        puts "parsing yaml..."
+      end
+    end
+    
+    Parser.for(:json) { parse } # Works
+    Parser.for(:yaml) { parse } # Works
+    Parser.for(:xml)  { parse } # Raises error
+
+## Installation
+
+    gem install registry --source http://gemcutter.org
+
+## Note on Patches/Pull Requests
  
 * Fork the project.
 * Make your feature addition or bug fix.
@@ -12,6 +44,6 @@ Description goes here.
   (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
 * Send me a pull request. Bonus points for topic branches.
 
-== Copyright
+## Copyright
 
 Copyright (c) 2009 Ben Schwarz. See LICENSE for details.
