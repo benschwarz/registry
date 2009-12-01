@@ -2,6 +2,8 @@
 
 registry is used to mix into a super class that you has many / multiple implementations via subclasses. 
 
+This has been described to me as a [factory pattern](http://en.wikipedia.org/wiki/Factory_method_pattern), [John Barton](http://whoisjohnbarton.com/) describes 'registry' as a "metaprogrammed method factory". 
+
 A good example of this is a parser, you might have a parser for xml, json and another for yml.
 Register your sub classes to handle certain labels or descriptions, then let the super class decide weather the message you send it can be handled or not.
 
