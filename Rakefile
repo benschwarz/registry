@@ -5,8 +5,8 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "registry"
-    gem.summary = %Q{A super class extension that allows registration of subclasses}
-    gem.description = %Q{A super class extension that allows registration of subclasses}
+    gem.summary = %Q{A dirt cheap plugin sytem}
+    gem.description = %Q{A dirt cheap plugin sytem}
     gem.email = "ben.schwarz@gmail.com"
     gem.homepage = "http://github.com/benschwarz/registry"
     gem.authors = ["Ben Schwarz"]

@@ -1,6 +1,6 @@
 # registry
 
-registry is used to mix into a super class that you has many / multiple implementations via subclasses. 
+registry is used to mix into a super class that has many or multiple implementations via subclasses. 
 
 This has been described to me as a [factory pattern](http://en.wikipedia.org/wiki/Factory_method_pattern), [John Barton](http://whoisjohnbarton.com/) describes 'registry' as a "metaprogrammed method factory". 
 
