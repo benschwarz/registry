@@ -4,7 +4,7 @@ module Registry
   class NotRegistered < StandardError; end
   
   def inherited(klass)
-    klass.send(:indentifier, klass.name.downcase.to_sym)
+    klass.send(:identifier, klass.name.downcase.to_sym)
   end
   
   def for(id, &block)
@@ -16,7 +16,7 @@ module Registry
   end
   
   private
-  def indentifier(*identifiers)
+  def identifier(*identifiers)
     identifiers.each {|i| @@registered[i] = self }
   end
 end

@@ -15,7 +15,7 @@ Register your sub classes to handle certain labels or descriptions, then let the
     end
 
     class Json < Parser
-      indentifier :json, :javascript
+      identifier :json, :javascript
 
       def self.parse
         puts "parsing json..."

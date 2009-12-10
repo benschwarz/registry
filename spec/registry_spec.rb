@@ -8,7 +8,7 @@ class Stacey < Parent
 end
 
 class Tracey < Parent
-  indentifier :child, :female
+  identifier :child, :female
   
   def method_call
   end
