@@ -4,10 +4,13 @@ registry is used to mix into a super class that has many or multiple implementat
 
 This has been described to me as a [factory pattern](http://en.wikipedia.org/wiki/Factory_method_pattern), [John Barton](http://whoisjohnbarton.com/) describes 'registry' as a "metaprogrammed method factory". 
 
-A good example of this is a parser, you might have a parser for xml, json and another for yml.
+A good example of this is a parser, you might have a parser for json and another for yml.
 Register your sub classes to handle certain labels or descriptions, then let the super class decide weather the message you send it can be handled or not.
 
 ## Usage
+
+A simple set of parsers: 
+
     require 'registry'
     
     class Parser
@@ -28,9 +31,23 @@ Register your sub classes to handle certain labels or descriptions, then let the
       end
     end
     
-    Parser.for(:json) { parse } # Works
-    Parser.for(:yaml) { parse } # Works
-    Parser.for(:xml)  { parse } # Raises error
+Look for your the json parser 
+
+    Parser.for(:json).parse
+    
+Or the Yaml parser. Notice it also uses its class name as an identifier
+
+    Parser.for(:yaml).parse(items)
+
+There is no parser for XML, this will raise a `Registry::NotRegistered` exception
+
+    Parser.for(:xml).parse(items)
+
+Perhaps you'd like to call methods on the matching parser with a block? You can! 
+
+    Parser.for(:json) do
+      parse(feed)
+    end
 
 ## Installation
 
