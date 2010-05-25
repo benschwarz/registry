@@ -4,6 +4,7 @@ module Registry
   class NotRegistered < StandardError; end
   
   def inherited(klass)
+    super(klass)
     klass.send(:identifier, klass.name)
   end
   
