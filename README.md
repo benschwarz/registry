@@ -1,4 +1,7 @@
 [![Build Status](https://travis-ci.org/kigster/registry.svg?branch=master)](https://travis-ci.org/kigster/registry)
+[![Code Climate](https://codeclimate.com/github/kigster/registry/badges/gpa.svg)](https://codeclimate.com/github/kigster/registry)
+[![Test Coverage](https://codeclimate.com/github/kigster/registry/badges/coverage.svg)](https://codeclimate.com/github/kigster/registry/coverage)
+[![Issue Count](https://codeclimate.com/github/kigster/registry/badges/issue_count.svg)](https://codeclimate.com/github/kigster/registry)
 
 # *Registry* — Simple Factory Pattern Ruby Library
 
