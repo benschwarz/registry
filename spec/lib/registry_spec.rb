@@ -1,5 +1,7 @@
 require 'spec_helper'
 
+require 'support/parser'
+
 module Support
   RSpec.describe Parser do
     subject(:parser_class) { described_class }
@@ -8,6 +10,11 @@ module Support
     describe described_class do
       it { is_expected.to respond_to(:for) }
       its(:store) { should eq(Registry::Store.instance) }
+      context '#store' do
+        subject(:store) { described_class.store }
+        its(:keys) { should include(:yaml, :yml, :json, :javascript) }
+      end
+
     end
 
     shared_examples_for :part_of_registry do |klass, *identifiers, serialized|

@@ -1,12 +1,18 @@
 require 'spec_helper'
+
+class Moo
+  extend Registry
+end
+
 module Registry
   RSpec.describe Store do
+   
     subject(:store) { described_class }
     let(:item) { { name: 'Konstantin' } }
+
     context 'class methods forward to the instance' do
       before do
-        store.clear
-        expect(store.empty?).to be(true)
+        store.delete(:key)
         store[:key] = item
       end
 
