@@ -1,28 +1,47 @@
+require 'registry/store'
+
 module Registry
-  @@registered = {}
-  
-  class NotRegistered < StandardError; end
-  
+  class NotRegistered < StandardError;
+  end
+
+  def store
+    ::Registry::Store.instance
+  end
+
   def inherited(klass)
     super(klass)
     klass.send(:identifier, klass.name)
   end
-  
+
   def for(id, &block)
-    if @@registered.has_key? normalize(id)
-      klass = @@registered[normalize(id)]
-      (block_given?) ? klass.class_eval(&block) : klass
-    else
-      raise NotRegistered, "There is no #{self.name} registered for #{id}"
+    with_item(id) do |klass|
+      block ? klass.class_eval(&block) : klass
     end
   end
-  
-  private
-  def identifier(*identifiers)
-    identifiers.each{|id| @@registered[normalize(id)] = self }
+
+  def with_item(id, &block)
+    nid = normalize(id)
+    if store.has_key?(nid)
+      klass = store[nid]
+      block ? block.call(klass) : klass
+    else
+      raise NotRegistered, "Class #{self.name} is not registered for #{id}"
+    end
   end
-  
+
+  def identifiers
+    store.keys.select { |k| store[k] == self}
+  end
+
+  private
+
+  def identifier(*identifiers)
+    identifiers.each do |id|
+      store[normalize(id)] = self
+    end
+  end
+
   def normalize(id)
-    id.to_s.downcase
+    id.to_s.downcase.to_sym
   end
 end
