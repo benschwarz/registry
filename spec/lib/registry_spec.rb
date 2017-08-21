@@ -15,6 +15,13 @@ module Support
         its(:keys) { should include(:yaml, :yml, :json, :javascript) }
       end
 
+      context '#register' do
+        let(:data) { Struct.new(:first, :last).new('Konstantin', 'G') }
+        before { Parser.register(:goo, data) }
+        it 'should return :goo' do
+          expect(Parser.goo).to eq(data)
+        end
+      end
     end
 
     shared_examples_for :part_of_registry do |klass, *identifiers, serialized|
@@ -22,6 +29,12 @@ module Support
         it 'should automatically register the class name' do
           identifiers.each do |id|
             expect(klass.for(id) { true }).to be(true)
+          end
+        end
+
+        it 'should automatically generate accessors on superclass' do
+          identifiers.each do |id|
+            expect(klass.send(id.to_sym)).to be(klass)
           end
         end
 

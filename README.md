@@ -13,6 +13,8 @@ A good example of this is a parser, you might have a parser for json and another
 
 ## Usage
 
+### Subclassing
+
 A simple set of parsers: 
 
 ```ruby
@@ -65,6 +67,44 @@ Parser.for(:json) do
   parse(@content)
 end
 # => { 'name' => 'Bobby' }
+```
+
+#### Lookup Methods
+
+For every key stored in the registry, a new method is automatically created on the superclass (the class extending the `Registry` module).
+
+So the following is entirely legal and allowed:
+
+```ruby
+Parser.yaml.parse(content)
+```
+
+### The `#register` Method
+
+Instead of creating a class hierarchy, you can store important things in the registry by adding them with a `#register` method:
+
+An alternative to subclassing, this method allows passing arbitrary
+structures as an `item`, keyed by the `:keys` array.
+
+As an example, consider a `CacheManager` class:
+
+```ruby
+class CacheManager
+  extend Registry
+end
+
+@content = '{ "name":"John Snow"}'
+# Using the *args syntax:
+CacheManager.register(:one, :two, :three, JSONs.load(@content))
+
+# Using the **opts syntax:
+CacheManager.register(keys: [:one, :two, :three], item: JSON.load(@content))
+
+# Mixing the two, etc.s 
+CacheManager.register(:one, :two, :three, item: JSON.load(@content))
+
+# Then:
+CacheManager.one['name'] # => "John Snow"
 ```
 
 ## Installation
