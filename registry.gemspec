@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.description = 'A dirt cheap plugin registry system, as a factory pattern.'
   spec.summary     = 'A dirt cheap plugin registry system, as a factory pattern.'
   spec.email       = %w(ben.schwarz@gmail.com kigster@gmail.com)
-  spec.homepage    = 'http://github.com/kigster/registry'
+  spec.homepage    = 'https://github.com/benschwarz/registry'
   spec.license     = 'MIT'
 
   spec.files = `git ls-files -z`.split("\x0").reject do |f|
