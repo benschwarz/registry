@@ -1,45 +1,27 @@
-require 'rubygems'
-require 'rake'
+require 'bundler/gem_tasks'
+require 'rspec/core/rake_task'
+require 'yard'
 
-begin
-  require 'jeweler'
-  Jeweler::Tasks.new do |gem|
-    gem.name = "registry"
-    gem.summary = %Q{A dirt cheap plugin sytem}
-    gem.description = %Q{A dirt cheap plugin sytem}
-    gem.email = "ben.schwarz@gmail.com"
-    gem.homepage = "http://github.com/benschwarz/registry"
-    gem.authors = ["Ben Schwarz"]
-    gem.add_development_dependency "rspec", ">= 1.2.9"
-    # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
-  end
-  Jeweler::GemcutterTasks.new
-rescue LoadError
-  puts "Jeweler (or a dependency) not available. Install it with: gem install jeweler"
+def shell(*args)
+  puts "running: #{args.join(' ')}"
+  system(args.join(' '))
 end
 
-require 'spec/rake/spectask'
-Spec::Rake::SpecTask.new(:spec) do |spec|
-  spec.libs << 'lib' << 'spec'
-  spec.spec_files = FileList['spec/**/*_spec.rb']
+task :permissions do
+  shell('rm -rf pkg/')
+  shell('chmod -v o+r,g+r * */* */*/* */*/*/* */*/*/*/* */*/*/*/*/*')
+  shell('chmod -v o+x,g+x exe/* bin/*')
+  shell("find . -type d -exec chmod o+x,g+x {} \\;")
 end
 
-Spec::Rake::SpecTask.new(:rcov) do |spec|
-  spec.libs << 'lib' << 'spec'
-  spec.pattern = 'spec/**/*_spec.rb'
-  spec.rcov = true
+task :build => :permissions
+
+YARD::Rake::YardocTask.new(:doc) do |t|
+  t.files = %w(lib/**/*.rb exe/*.rb - README.md LICENSE)
+  t.options.unshift('--title','A dirt cheap plugin registry system, as a factory pattern.')
+  t.after = ->() { exec('open doc/index.html') }
 end
 
-task :spec => :check_dependencies
+RSpec::Core::RakeTask.new(:spec)
 
 task :default => :spec
-
-require 'rake/rdoctask'
-Rake::RDocTask.new do |rdoc|
-  version = File.exist?('VERSION') ? File.read('VERSION') : ""
-
-  rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = "registry #{version}"
-  rdoc.rdoc_files.include('README*')
-  rdoc.rdoc_files.include('lib/**/*.rb')
-end
