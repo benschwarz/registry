@@ -18,7 +18,7 @@ task :build => :permissions
 
 YARD::Rake::YardocTask.new(:doc) do |t|
   t.files = %w(lib/**/*.rb exe/*.rb - README.md LICENSE)
-  t.options.unshift('--title','"Sym – Symmetric Key Encryption for Your Data"')
+  t.options.unshift('--title','A dirt cheap plugin registry system, as a factory pattern.')
   t.after = ->() { exec('open doc/index.html') }
 end
 
